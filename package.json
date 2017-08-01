@@ -1,0 +1,9 @@
+{
+  "name": "helloworld-serverless",
+  "description": "Fetch file from s3 and inject dynamic content",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.93.0"
+  }
+}

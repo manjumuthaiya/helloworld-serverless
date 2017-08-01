@@ -1,0 +1,36 @@
+
+service: helloworld-serverless
+
+custom:
+  bucket: rfhelloworld
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+  environment:
+    GLOBAL_VAR: foo
+    TOKEN: ${file(./serverless.env.yml):${opt:stage}.TOKEN}
+    BUCKET: ${self:custom.bucket}
+    STAGE: ${opt:stage}
+
+# you can add packaging information here
+#package:
+#  include:
+#    - include-me.js
+#    - include-me-dir/**
+#  exclude:
+#    - exclude-me.js
+#    - exclude-me-dir/**
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
